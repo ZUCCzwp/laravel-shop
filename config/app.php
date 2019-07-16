@@ -230,4 +230,6 @@ return [
 
     'faker_locale' => 'zh_CN', // 新增一个配置项
 
+    'order_ttl' => 1800,
+
 ];
