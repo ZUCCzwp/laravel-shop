@@ -15,10 +15,12 @@
 Auth::routes();
 Route::redirect('/', '/products')->name('root');
 Route::get('products', 'ProductsController@index')->name('products.index');
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth', 'verified'], function() {
     Route::get('/email_verify_notice', 'PagesController@emailVerifyNotice')->name('email_verify_notice');
     Route::get('/email_verification/verify', 'EmailVerificationController@verify')->name('email_verification.verify');
     Route::get('/email_verification/send', 'EmailVerificationController@send')->name('email_verification.send');
+    Route::get('payment/{order}/alipay', 'PaymentController@payByAlipay')->name('payment.alipay');
+    Route::get('payment/alipay/return', 'PaymentController@alipayReturn')->name('payment.alipay.return');
     // 开始
     Route::group(['middleware' => 'email_verified'], function() {
         Route::get('user_addresses', 'UserAddressesController@index')->name('user_addresses.index');
@@ -41,3 +43,4 @@ Route::group(['middleware' => 'auth'], function() {
     // 结束
 });
 Route::get('products/{product}', 'ProductsController@show')->name('products.show');
+Route::post('payment/alipay/notify', 'PaymentController@alipayNotify')->name('payment.alipay.notify');
