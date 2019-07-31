@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth', 'verified'], function() {
     Route::get('payment/{order}/alipay', 'PaymentController@payByAlipay')->name('payment.alipay');
     Route::get('payment/alipay/return', 'PaymentController@alipayReturn')->name('payment.alipay.return');
     Route::post('orders/{order}/received', 'OrdersController@received')->name('orders.received');
+    Route::get('coupon_codes/{code}', 'CouponCodesController@show')->name('coupon_codes.show');
     // 开始
     Route::group(['middleware' => 'email_verified'], function() {
         Route::get('user_addresses', 'UserAddressesController@index')->name('user_addresses.index');
